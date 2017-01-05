@@ -1,7 +1,21 @@
 apply plugin: 'java'
+apply plugin: 'maven'
+
+group 'lt.overdrive'  ////maven groupid
+version '1.0.0' //// file name extension
 
 repositories {
     mavenCentral()
+    mavenLocal()
+}
+
+jar {
+    baseName = 'trackparser'  //// maven artifactid
+    version =  version //// jar manifest
+    manifest {
+        attributes 'track-parser': 'Parser of GPX & TCX files',
+                'Implementation-Version': version
+    }
 }
 
 dependencies {
