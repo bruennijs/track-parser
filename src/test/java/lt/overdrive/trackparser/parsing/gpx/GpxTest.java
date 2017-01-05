@@ -10,6 +10,7 @@ import java.io.File;
 
 import static lt.overdrive.trackparser.CommonGpsTestDataHelper.*;
 import static lt.overdrive.trackparser.utils.TestResourceUtils.getFile;
+import static lt.overdrive.trackparser.utils.TestResourceUtils.getStream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
@@ -73,5 +74,12 @@ public class GpxTest {
         Trail trail = new GpxParser().parse(getFile("gpx/test_no_time.gpx"));
 
         assertThat(trail, samePropertyValuesAs(expected));
+    }
+
+    @Test
+    public void parserShouldLoadOneTrack_givenOneTrackFile_with_inputstream() throws Exception {
+        Trail trail = new GpxParser().parse(getStream("gpx/test_with_ele.gpx"));
+
+        assertThat(trail.getTracks().size(), equalTo(1));
     }
 }

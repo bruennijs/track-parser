@@ -1,6 +1,7 @@
 package lt.overdrive.trackparser.utils;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 public class TestResourceUtils {
@@ -10,5 +11,11 @@ public class TestResourceUtils {
         } catch (URISyntaxException e) {
             return null;
         }
+    }
+
+    public static InputStream getStream(String name)
+    {
+        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        return contextClassLoader.getResourceAsStream(name);
     }
 }

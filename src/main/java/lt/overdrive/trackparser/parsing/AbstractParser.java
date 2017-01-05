@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
+import java.io.InputStream;
 
 public abstract class AbstractParser implements GpsFileParser {
     public Trail parse(File file) throws ParserException {
@@ -25,6 +26,19 @@ public abstract class AbstractParser implements GpsFileParser {
         }
     }
 
+    @Override
+    public Trail parse(InputStream is) throws ParserException {
+        try {
+            return loadTrail(is);
+        } catch (UnmarshalException pe) {
+        return throwInvalidFileException(pe);
+        } catch (Exception e) {
+            throw new ParserException("Parsing failed.", e);
+        }
+    }
+
+    protected abstract Trail loadTrail(InputStream is) throws Exception;
+
     protected abstract Trail throwInvalidFileException(UnmarshalException pe) throws ParserException;
 
     protected abstract Trail loadTrail(File file) throws Exception;
@@ -34,6 +48,13 @@ public abstract class AbstractParser implements GpsFileParser {
         Unmarshaller unmarshaller = context.createUnmarshaller();
         unmarshaller.setSchema(getSchema());
         return ((JAXBElement) unmarshaller.unmarshal(file)).getValue();
+    }
+
+    protected Object loadXml(InputStream is, Class clazz) throws JAXBException, ParserException {
+        JAXBContext context = JAXBContext.newInstance(clazz);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        unmarshaller.setSchema(getSchema());
+        return ((JAXBElement) unmarshaller.unmarshal(is)).getValue();
     }
 
     protected DateTime convertTime(XMLGregorianCalendar id) {

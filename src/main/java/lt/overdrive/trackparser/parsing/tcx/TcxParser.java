@@ -19,6 +19,7 @@ import lt.overdrive.trackparser.parsing.tcx.schema.TrainingCenterDatabaseT;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.validation.Schema;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -99,6 +100,11 @@ public class TcxParser extends AbstractParser {
 
     public Schema getSchema() throws ParserException {
         return loadSchema("tcx/TrainingCenterDatabasev2.xsd");
+    }
+
+    @Override
+    protected Trail loadTrail(InputStream is) throws Exception {
+        throw new Exception("not implemented yet");
     }
 
     @Override

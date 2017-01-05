@@ -15,6 +15,7 @@ import lt.overdrive.trackparser.parsing.gpx.schema.WptType;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.validation.Schema;
 import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,12 @@ public class GpxParser extends AbstractParser {
     @Override
     public Schema getSchema() throws ParserException {
         return loadSchema("gpx/gpx.xsd");
+    }
+
+    @Override
+    protected Trail loadTrail(InputStream is) throws Exception {
+        GpxType gpxType = (GpxType) loadXml(is, GpxType.class);
+        return extractTrailFromTcx(gpxType);
     }
 
     @Override
