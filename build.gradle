@@ -10,7 +10,7 @@ repositories {
 }
 
 jar {
-    baseName = 'trackparser'  //// maven artifactid
+    baseName = 'track-parser'  //// maven artifactid
     version =  version //// jar manifest
     manifest {
         attributes 'track-parser': 'Parser of GPX & TCX files',
