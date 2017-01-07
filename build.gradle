@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
-group 'lt.overdrive'  ////maven groupid
+group 'de.bruenni'  ////maven groupid
 version '1.1.0' //// file name extension
 
 repositories {
