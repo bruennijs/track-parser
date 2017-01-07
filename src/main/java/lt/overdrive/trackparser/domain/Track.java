@@ -3,7 +3,23 @@ package lt.overdrive.trackparser.domain;
 import java.util.List;
 
 public class Track {
+    private String name;
+    private String desc;
     private List<TrackPoint> points;
+
+    public Track(String name, String desc, List<TrackPoint> points) {
+        this.name = name;
+        this.desc = desc;
+        this.points = points;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
 
     public Track(List<TrackPoint> points) {
         this.points = points;
@@ -12,6 +28,8 @@ public class Track {
     public List<TrackPoint> getPoints() {
         return points;
     }
+
+
 
     @Override
     public String toString() {
